@@ -1,0 +1,107 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 100vh; 
+}
+
+.container {
+  margin-top: 2.5vh;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 90vw; 
+  max-width: 1400px;
+  text-align: center;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+textarea {
+  width: 85%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 100px;
+}
+
+button {
+  width: 40%;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin: 10px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.table-section {
+  padding-bottom: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.header {
+  background-color: #121212;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  margin-top: 1.5vh; 
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 2vw; 
+}
+
+/* Media Query for Tablets and Larger */
+@media screen and (min-width: 768px) {
+  .container {
+    margin-top: 5vh;
+    padding: 30px;
+    font-size: 16px;
+  }
+
+  button {
+    width: 30%;
+  }
+}
+
+/* Media Query for Desktops and Larger */
+@media screen and (min-width: 1200px) {
+  .container {
+    margin-top: 7.5vh;
+    padding: 40px;
+    font-size: 18px;
+  }
+
+  button {
+    width: 25%;
+  }
+}

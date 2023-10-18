@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 50</title>
+</head>
+<body>
+    <h2>JS 50 Practice</h2>
+</body>
+
+<script>
+// //1
+// //hoisting..
+// function fruit(){
+//     //here undefined becuse var varible declared but not initialized.
+//     console.log(name);
+//     console.log(price)
+//     var name = 'apple';
+//     let price = 25;
+// }
+// fruit();
+
+</script>
+
+<script>
+
+    //2
+    // for(var i=0; i<3; i++ ){
+    //     setTimeout(()=>console.log(i),1)
+    // }
+    //var is global scope so here loop runs completely before printing means ands will be 3 as 3 times.
+    
+</script>
+
+<script>
+    //3
+    // for(let i=0; i<3; i++ ){
+    //     setTimeout(()=>console.log(i),1)
+    // }
+    //let has block scope here loop will waites for each block to execute the code.
+</script>
+
+<script>
+    //4
+    // console.warn(+true);//1
+    // console.warn(typeof(+true));//number
+</script>
+
+<script>
+    // 5
+    // console.warn(!'Sanjay');//false
+    // console.warn(typeof('Sanjay'));//string
+</script>
+
+<script>
+    //6
+    // let data = "size";
+    // const bird = {
+    //     size : "small",
+    // }
+    // console.warn(bird["size"]);//small
+    // console.warn(bird.size);//small
+    // console.warn(bird[data])//small
+    // console.warn(bird.data);//undefined
+</script>
+
+<script>
+    // let c = {name: "sanjay"}
+    // let d;
+    // d=c;
+    // c.name = "SAN"
+    // console.log(d.name);//SAN
+    //ans is SAN becuse object uses object ref , automatically change the value, both variable has same memory ref
+</script>
+
+<script>
+    // var x;
+    // var x=10;
+    // console.log(x);//10
+    //var can declare multiple times
+</script>
+
+<script>
+    // var x;
+    // let x=10;
+    // console.log(x)//eror
+    //let is not have global scope
+</script>
+
+<script>
+// let a ="5";
+// let b =5;
+// console.log(a==b);//true
+// console.log(a===b);//false
+</script>
+
+<script>
+
+// let name ;
+// naem ={};
+// console.log(name);//undefined
+
+</script>
+
+<script>
+    // function fruit(){
+    //     console.log("apple");
+    // }
+    // fruit.name ="kiwi";
+    // fruit();//apple
+    </script>
+
+    <script>
+        // function sum(a,b){
+        //     return a+b;
+        // }
+        // console.log(sum(10, '70'));//1070 concating value
+    </script>
+
+    <script>
+        // let n=2;
+        // console.log(n++);//2
+        // console.log(++n);//4
+        // console.log(n);//4
+    </script>
+
+    <script>
+        // function getAge(...age){
+        //     console.log(typeof age)//object
+        //     console.log(age);// in JS array is considered as object only
+        // }
+
+        // getAge(23);//object
+    </script>
+
+    <script>
+        // var cal = eval('10*56-200')//evalutes caluculation
+        // console.log(cal);
+    </script>
+
+    <script>
+        //HOW LONG BELOW VALES CAN ACCESSABLE
+        sessionStorage.setItem('SANJAY',23);
+        //value get deleted when tab or browser get closed
+        //localstorage values removed aprox around 1 month
+        //data removes when user closes or restarts computers 
+    </script>
+
+    <script>
+        // const obj = {1:'sa', 2:"as", 3:"sasd", 4:'jdb'}
+        // console.log(obj.hasOwnProperty("1"));//true
+        // console.log(obj.hasOwnProperty(1));//true
+    </script>
+
+    <script>
+        // const obj = {1:'a', 2:'b', 1:'c'}
+        // console.log(obj);//c b
+    </script>
+
+    <script>
+        // for(let i=0; i<5; i++){
+        //     if(i===3)
+        //     continue;
+        // console.log(i); //skips 3 ans is 0,1,2,4
+        // }
+    </script>
+
+    <script>
+        // const fi = ()=>{console.log("first")}
+        // const fa = ()=>{setTimeout(()=>{console.log("second")})};
+        // const fq = ()=>{console.log("thrid")};
+
+        // fi();
+        // fa();
+        // fq();
+    </script>
+
+        <!-- <div>
+            <div onclick="console.log('first')">
+                <div onclick="console.log('sec div')">
+                    <button onclick="console.log('buttons')">
+                     click
+                    </button> 
+                 </div>
+                </div> 
+            </div> -->
+
+<script>
+
+    // const person ={name : 'sanjay'};
+    // function sayHi(age){
+    //  return `${this.name} is ${age}`
+    // }
+
+    // console.log(sayHi.call(person, 23))//return op
+    // console.log(sayHi.bind(person, 23))//return fn
+    // console.log(sayHi.bind(person,23)())//so in bind we need to call fn again
+</script>
+
+<script>
+    // function sauHi(){
+    //     return (()=>0)();//calling immediatly
+    // }
+    // console.log(typeof(sauHi()));//number
+</script>
+
+<script>
+    //     function sauHi(){
+    //     return (()=>0);
+    // }
+    // console.log(typeof(sauHi()));//function
+</script>
+
+<script>
+    // console.log(typeof typeof(1))//string
+</script>
+
+<script>
+    // const num = [1,2,3];
+    // num[10] = 6;
+    // console.log(num);//pasiotions inbetween are empty
+</script>
+
+<script>
+    // const num = [1,2,3]
+    // num[3] = num;
+    // console.log(num);//at every 3 rd position num array get added infinetly
+</script>
+
+<script>
+    // J S is primitive or objject
+    //primitive - boolean , string , numbers 
+</script>
+
+
+<script>
+    // console.log(!! null);//null is like false to true to false
+    // console.log((!!""));//string is negitive value false to true to false
+    // console.log(!!1);//true to false to true
+</script>
+
+<script>
+    // console.warn(setInterval(()=> console.log("hi"),1000))
+    // console.warn(setInterval(()=> console.log("hi"),1000))
+    // console.warn(setInterval(()=> console.log("hi"),1000))
+    //setInterval genarates uniqe ID and repetes infinitely
+</script>
+
+<script>
+    // console.log([..."sanjay"]);
+    //spread op sperad the each value in array
+    //distructure array , object ,etc to minimal part
+</script>
+
+<script>
+    // const a = 7+8+'89';
+    // console.log(typeof a);//string
+</script>
+
+<script>
+// console.log(typeof 2+6+'8');//number68
+//typeof 2 is nmber remianing will concates
+
+// console.log(typeof (2+6+ +'8'));//number
+//extra + helps to comvet string to num
+</script>
+
+<script>
+    // console.log(typeof []);//object
+    // console.log( [] == []);// false -> usesdiff memeory alloction
+</script>
+
+<script>
+    // let data = [1,2,3].map((num)=>{
+    //     if(typeof num === 'number')return;//not defined what to return in return
+    //     return num *2;
+    // })
+    // console.log(data);////undefined undefined undefined
+</script>
+
+<script>
+    // function getInfo(member){
+    //     member.name = "sanjay";
+    // }
+
+    // const person = {name :'asb'};
+    // getInfo(person);
+    // console.log(person);//sanjay
+</script>
+
+<script>
+//     function Car(){
+//         this.make = 'tata';
+//         return {make :'kia'}//override the previous key
+//     }
+// const car = new Car();
+// console.log(car.make);//kia
+</script>
+
+<script>
+    // (()=>{
+    //     let c =(a=10);
+    // })();
+
+    // console.log(typeof c);//undefined
+    //becuse we accesing let variaable outside of block
+</script>
+
+<script>
+ 
+//  (()=>{
+//     let c=b=10;// let is c here and b is automatically takes as var
+//  })()
+
+//  console.log(typeof c, typeof b);
+</script>
+
+<script>
+
+    // (()=>{
+    //     let x=y=10;
+    // })();
+
+    // (()=>{
+    //     let x=y=20;
+    // })();
+
+    // console.log(y);//20
+</script>
+<script>
+    // let a=108;
+    // (()=>{
+    //  var a  =10;
+    // })()
+
+    // console.log(a);//108
+    //var limited to brackets so let prints here
+</script>
+
+<script>
+    // console.log(!true - true);//-1
+    // //0-1 = -1
+</script>
+<script>
+    // console.log(true + +"10");//11
+    //1+10=11
+</script>
+</html>

@@ -1,0 +1,43 @@
+Hoisting in JavaScript is a behavior where variable and function declarations are moved to the top of their containing scope during the compilation phase. This means you can use a variable or a function before it is declared in the code. However, only the declarations are hoisted, not the initializations.
+
+Let's explore hoisting with a real-life analogy and examples:
+
+### Real-Life Analogy: Hotel Reservation Desk
+
+l
+
+#### Example 1: Variables Hoisting
+
+```javascript
+console.log(name); // undefined (variable is hoisted but not initialized)
+var name = "John";
+console.log(name); // "John" (variable is now initialized)
+```
+
+In this example, the `name` variable is hoisted to the top of the scope. However, it's only initialized later in the code. The first `console.log` prints `undefined` because the variable is hoisted but not yet assigned a value. The second `console.log` prints `"John"` after the variable is initialized.
+
+#### Example 2: Function Hoisting
+
+```javascript
+sayHello(); // "Hello, there!" (function is hoisted and can be called before the declaration)
+function sayHello() {
+  console.log("Hello, there!");
+}
+```
+
+In this example, the `sayHello` function is hoisted to the top of the scope. You can call the function before the actual declaration in the code. This works because the function declaration is hoisted, allowing you to use the function before its declaration in the code.
+
+### Note:
+
+1. **Variables declared with `let` and `const` are also hoisted**, but they are not initialized until their actual declaration in the code. Accessing them before declaration will result in a `ReferenceError`.
+
+2. **Function expressions (anonymous functions assigned to variables) are not hoisted**, only the variable declaration is hoisted. For example:
+
+   ```javascript
+   sayHello(); // TypeError: sayHello is not a function (the variable is hoisted but not the function)
+   var sayHello = function() {
+     console.log("Hello, there!");
+   }
+   ```
+
+In summary, hoisting is a fundamental behavior in JavaScript. Understanding it helps prevent unexpected issues in your code. Remember that while declarations are hoisted, initializations (assignments) are not, which can lead to unexpected behavior if you're not aware of this concept.

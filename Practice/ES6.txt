@@ -1,0 +1,96 @@
+JavaScript let
+---------------
+The let keyword allows you to declare a variable with block scope.
+
+var x = 10;
+// Here x is 10
+{
+  let x = 2;
+  // Here x is 2
+}
+// Here x is 10
+
+
+The const keyword allows you to declare a constant (a JavaScript variable with a constant value).
+Constants are similar to let variables, except that the value cannot be changed.
+
+var x = 10;
+// Here x is 10
+{
+  const x = 2;
+  // Here x is 2
+}
+// Here x is 10
+
+Arrow functions allows a short syntax for writing function expressions.
+You don't need the function keyword, the return keyword, and the curly brackets.
+You can only omit the return keyword and the curly brackets if the function is a single statement.
+Using const is safer than using var, because a function expression is always a constant value.
+
+// ES5
+var x = function(x, y) {
+   return x * y;
+}
+// ES6
+const x = (x, y) => x * y;
+
+
+The Spread (...) Operator
+The ... operator expands an iterable (like an array) into more elements:
+The ... operator can be used to expand an iterable into more arguments for function calls:
+
+const numbers = [23,55,21,87,56];
+let maxValue = Math.max(...numbers);
+//OP-87
+
+const q1 = ["Jan", "Feb", "Mar"];
+const q2 = ["Apr", "May", "Jun"];
+const q3 = ["Jul", "Aug", "Sep"];
+const q4 = ["Oct", "Nov", "May"];
+
+const year = [...q1, ...q2, ...q3, ...q4];
+
+
+The For/Of Loop
+
+for/of lets you loop over data structures that are iterable such as Arrays, Strings, Maps, NodeLists, and more.
+The for/of loop has the following syntax:
+
+for (variable of iterable) {
+  // code block to be executed
+}
+
+variable - For every iteration the value of the next property is assigned to the variable. Variable can be declared with const, let, or var.
+iterable - An object that has iterable properties.
+
+const cars = ["BMW", "Volvo", "Mini"];
+let text = "";
+
+for (let x of cars) {
+  text += x + " ";
+}
+//Output
+BMW
+Volvo
+Mini
+
+A Map holds key-value pairs where the keys can be any datatype.
+A Map remembers the original insertion order of the keys.
+A Map has a property that represents the size of the map.
+
+JavaScript Promises
+A Promise is a JavaScript object that links "Producing Code" and "Consuming Code".
+"Producing Code" can take some time and "Consuming Code" must wait for the result.
+
+const myPromise = new Promise(function(myResolve, myReject) {
+// "Producing Code" (May take some time)
+
+  myResolve(); // when successful
+  myReject();  // when error
+});
+
+// "Consuming Code" (Must wait for a fulfilled Promise).
+myPromise.then(
+  function(value) { /* code if successful */ },
+  function(error) { /* code if some error */ }
+);

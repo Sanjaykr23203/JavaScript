@@ -1,0 +1,248 @@
+import { Observable } from 'rxjs';
+
+const observable = new Observable((sub) => {
+  sub.next(1);
+  sub.next(2);
+  sub.next(3);
+  sub.next(4);
+  setTimeout(() => {
+    sub.next(5);
+    sub.complete();
+  }, 2000);
+});
+
+console.log('before subscribe');
+observable.subscribe({
+  next(x) {
+    console.log(x);
+  },
+  error(err) {
+    console.log(err);
+  },
+  complete() {
+    console.log('done');
+  },
+});
+
+console.log('after subscribe');
+______________________________________________________
+
+Observables as generalizations of functions
+
+
+
+import { Observable } from 'rxjs';
+
+const foo = new Observable((subscriber) => {
+  console.log('Hello');
+  subscriber.next(42);
+});
+
+foo.subscribe((x) => {
+  console.log(x);
+});
+foo.subscribe((y) => {
+  console.log(y);
+});
+
+
+function foo() {
+  console.log('Hello');
+  return 42;
+  return 100; // dead code. will never happen
+}
+
+
+
+import { Observable } from 'rxjs';
+
+const foo = new Observable((subscriber) => {
+  console.log('Hello');
+  subscriber.next(42);
+  subscriber.next(100); // "return" another value
+  subscriber.next(200); // "return" yet another
+});
+
+console.log('before');
+foo.subscribe((x) => {
+  console.log(x);
+});
+console.log('after');//before hello 42 100 200 after
+
+________________________________________________________
+function foo() {
+  console.log('Hello');
+  return 42;
+  return 100; // dead code. will never happen
+}
+
+import { Observable } from 'rxjs';
+
+const foo = new Observable((subscriber) => {
+  console.log('Hello');
+  subscriber.next(42);
+  subscriber.next(100); // "return" another value
+  subscriber.next(200); // "return" yet another
+});
+
+console.log('before');
+foo.subscribe((x) => {
+  console.log(x);
+});
+console.log('after');
+
+
+import { Observable } from 'rxjs';
+
+const observable = new Observable(function subscribe(subscriber) {
+  subscriber.next(1);
+  subscriber.next(2);
+  subscriber.next(3);
+  subscriber.complete();
+  subscriber.next(4); // Is not delivered because it would violate the contract
+});
+
+import { Observable } from 'rxjs';
+
+const observable = new Observable(function subscribe(subscriber) {
+  try {
+    subscriber.next(1);
+    subscriber.next(2);
+    subscriber.next(3);
+    subscriber.complete();
+  } catch (err) {
+    subscriber.error(err); // delivers an error if it caught one
+  }
+});
+
+import { from } from 'rxjs';
+
+const observable = from([10, 20, 30]);
+const subscription = observable.subscribe((x) => console.log(x));
+// Later:
+subscription.unsubscribe();
+
+
+For instance, this is how we clear an interval execution set with setInterval:
+
+import { Observable } from 'rxjs';
+
+const observable = new Observable(function subscribe(subscriber) {
+  // Keep track of the interval resource
+  const intervalId = setInterval(() => {
+    subscriber.next('hi');
+  }, 1000);
+
+  // Provide a way of canceling and disposing the interval resource
+  return function unsubscribe() {
+    clearInterval(intervalId);
+  };
+});
+s
+
+const observer = {
+  next: x => console.log('Observer got a next value: ' + x),
+  error: err => console.error('Observer got an error: ' + err),
+  complete: () => console.log('Observer got a complete notification'),
+};
+
+const observer = {
+  next: x => console.log('Observer got a next value: ' + x),
+  error: err => console.error('Observer got an error: ' + err),
+};
+
+____________________________________________________________________________________________________________________________________________________________
+Operator
+
+1.
+
+import { of, map } from 'rxjs';
+
+of(1, 2, 3)
+  .pipe(map((x) => x * x))
+  .subscribe((v) => console.log(`value: ${v}`));
+
+// Logs:
+// value: 1
+// value: 4
+// value: 9
+
+2.
+import { of, first } from 'rxjs';
+
+of(1, 2, 3)
+  .pipe(first())
+  .subscribe((v) => console.log(`value: ${v}`));
+
+// Logs:
+// value: 1
+
+first -> Emits only the first value (or the first value that meets some condition) emitted by the source Observable.
+
+_________________________________________________________________________________
+
+Using ajax() to fetch the response object that is being returned from API
+
+import { ajax } from 'rxjs/ajax';
+import { map, catchError, of } from 'rxjs';
+
+const obs$ = ajax.getJSON('https://api.github.com/users?per_page=5').pipe(
+  map(userResponse => console.log('users: ', userResponse)),
+  catchError(error => {
+    console.log('error: ', error);
+    return of(error);
+  })
+);
+
+obs$.subscribe({
+  next: value => console.log(value),
+  error: err => console.log(err)
+});
+
+Using ajax() with object as argument and method POST with a two seconds delay
+
+___
+bindCallback
+
+import { bindCallback } from 'rxjs';
+
+const someFunction = (n, s, cb) => {
+  cb(n, s, { someProperty: 'someValue' });
+};
+
+const boundSomeFunction = bindCallback(someFunction);//The bindCallback function is used to convert someFunction into an Observable. Now, 
+boundSomeFunction(5, 'some string').subscribe((values) => {
+  console.log(values); // [5, 'some string', {someProperty: 'someValue'}]
+});
+
+__
+
+bindNodeCallback
+
+someFunction(a => {
+  console.log(a); // 5
+});
+const boundSomeFunction = bindNodeCallback(someFunction);
+boundSomeFunction()
+.subscribe(
+  value => {}             // never gets called
+  err => console.log(err) // 5
+);
+
+___
+defer 
+
+import { defer, fromEvent, interval } from 'rxjs';
+
+const clicksOrInterval = defer(() => {
+  return Math.random() > 0.5
+    ? fromEvent(document, 'click')
+    : interval(1000);
+});
+clicksOrInterval.subscribe(x => console.log(x));
+
+// Results in the following behavior:
+// If the result of Math.random() is greater than 0.5 it will listen
+// for clicks anywhere on the "document"; when document is clicked it
+// will log a MouseEvent object to the console. If the result is less
+// than 0.5 it will emit ascending numbers, one every second(1000ms).

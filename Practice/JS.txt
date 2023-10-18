@@ -1,0 +1,754 @@
+function name(){
+    //fn scope
+}
+
+var a =5;
+console.log(a);
+//here var a is global scope
+//var is fn scope let and const are block scope
+
+{
+   var a1=10;
+}
+console.log(a1);
+//acceseble outside of the block
+
+{
+    let b1=100;
+    console.log(b1);
+}
+//let and const cant acessable outside of the block
+//let and const cant redeclared in same scope {let a=2; const a=2;}
+//var can be redeclared in same scope{var a=2; var a=2;}
+
+
+//valiable shadowing
+function varShadowing(){
+    var a = 1000;
+
+    if(true){
+        let a=2000;
+        console.log("Inside block "+a);
+    }
+    console.log("outside block "+a);
+}
+varShadowing();
+
+//declaration without initialization
+let x;
+var x1;
+//const a;//cant declare without initialization
+
+//reinitialization
+let c=10;
+c=20
+
+var c1=10;
+c1=20
+
+const c2=10;
+c2=20 //Cant initializes
+
+//Hoisting
+//JS engine excecutes line by line code
+//during excecution fns and variables get moved on top of code = hoisting
+
+console.log(count);
+console.log(count2);
+console.log(count3);
+var count = 1;
+let count2 = 2;
+const count3 = 23;
+
+//temp-dead-zome -> time between declarion and initialization of let and const varriables
+
+function abc(){
+    console.log(q1,q2,q3);
+    var q1=10;
+    let q2=200;
+    const q3=89;
+}
+abc();
+
+
+
+
+
+
+
+
+
+let studentss = [
+    {name:"Sanjay", rollNuber:25, marks: 88},
+    {name:"abc", rollNuber:21, marks: 58},
+    {name:"def", rollNuber:28, marks: 68},
+    {name:"ghi", rollNuber:20, marks: 98},
+];
+const capitalNames = studentss.map((stu)=>{
+    stu.name.toUpperCase();
+})
+console.log(capitalNames);
+
+//scored more than 60 marks
+const MoreMarks = studentss.filter((mar)=>{
+    mar.marks>60;
+})
+console.log(MoreMarks);
+//scored more than 60 marks and rollno >50
+const MoreMarksAndRollNum = studentss.filter((mar)=>{
+    mar.marks>60 && mar.rollNuber>50;
+})
+console.log(MoreMarksAndRollNum);
+
+//sum of marksn of all student
+console.log("sum of marksn of all student");
+const sum = studentss.reduce((acc,curr)=>{
+    acc+curr.marks,0
+})
+console.log(sum);
+
+console.log("return only name of the student who scored more than 60");
+const namess=studentss.filter((st)=>{st.marks>60}).map((stname)=>{stname.name});
+console.log(namess);
+
+
+console.log("returntotal marks of the student who scored more than 60 and after 20 marks added to those who scored less than 60");
+
+const totalMarks = studentss.map((st)=>{
+    if(st.marks<60){
+        st.marks=st.marks+20;
+    }
+    return st;
+}).filter((st)=>{st.marks>60})
+   .reduce((acc,curr)=>{acc+curr.marks},0);
+
+console.log(totalMarks);
+
+
+
+//map,filter,reduce are array method used to itarate over a array and 
+//perform cumputation and also may return new array
+
+//what is map() ?
+//used to create a new array from existing one
+
+const numbers =[1,2,4,5,6,7,8]
+
+const mapNumbers = numbers.map((num,i,arr)=>{
+    //return num*3+i;
+    return num;
+})
+console.log(mapNumbers);
+
+
+//what is filter() ?
+//filter() will takes each statement in an array and applies conditional statement
+//if condition gets true element get pushed into the output array and vice versa
+//filter returns those element in an array which statisfyies the condition
+
+const Items =[2,3,4,5,6,17,22,4,5,90,20]
+const LessThanNum = Items.filter((num)=>{
+    return num<=20;
+})
+console.log("Filter Method");
+console.log(LessThanNum);
+
+//what is reduce() ?
+//reduce method reduce the elements of array makes into single element at the end
+
+const ReduceNums = [1,2,3,4,5,6]
+//takes callback fn and initial value
+//parameters are accumualtor, currentValue, index, array
+//acc->result of previous computation = 0 initially
+const NumbersOfReduce = ReduceNums.reduce((acc,num,arr,i)=>{
+    return acc + num;
+    //0+1,1+2........
+},0)
+console.log(NumbersOfReduce);
+
+
+//Map() polyfills
+console.log("Map Polyfills")
+//prototype adding mymap of array method to .JS file 
+Array.prototype.myMap = function(cb){
+    let temp=[];
+    for(let i=0; i<this.length;i++){
+        temp.push(cb(this[i],i,this))
+        //this[i] initial value
+        //i index
+        //this is actual array
+        //here this is parent arrays
+    }
+    return temp;
+}
+
+const numbers1 =[1,2,4,5,6,7,8]
+
+const mapNumbers1 = numbers.myMap((num,i,arr)=>{
+    //return num*3+i;
+    return num;
+})
+console.log(mapNumbers);
+
+
+//Filter() polyfills
+Array.prototype.MyFilter = function(cbf){
+    let temp=[];
+    for(let i=0; i<this.length;i++){
+        if(cbf(this[i],i,this)){
+            temp.push(this[i]);
+        }
+    }
+    return temp;
+}
+
+const Items1 =[2,3,4,5,6,17,22,4,5,90,20]
+const LessThanNum1 = Items.MyFilter((num)=>{
+    return num<=20;
+})
+console.log("Polyfills Filter Method");
+console.log(LessThanNum);
+
+//Reduce() polyfills
+console.log("Polyfills Reduce Method");
+Array.prototype.MyReduce = function(cbf1,initialvalue){
+    var accumulator = initialvalue;
+    for (let i = 0; i < this.length; i++) {
+        accumulator = accumulator ? cbf1(accumulator, this[i],this):this[i];
+    }
+    return accumulator;
+}
+
+const ReduceNums1 = [1,2,3,4,5,6]
+//takes callback fn and initial value
+//parameters are accumualtor, currentValue, index, array
+//acc->result of previous computation = 0 initially
+const NumbersOfReduce1 = ReduceNums.MyReduce((acc,num,arr,i)=>{
+    return acc + num;
+    //0+1,1+2........
+},0)
+console.log(NumbersOfReduce);
+
+
+
+
+//Map and foreach
+//These are array fns loop through the items of array
+//map returns an array but foreach dont
+//we can modify original array with foreach but we cant make it return
+console.log("Map v/s forEach");
+const arr22 = [2,3,4,5,6,7,8]
+const mapresult = arr22.map((arri)=>{
+    return arri;
+})
+
+const forEachResult = arr22.forEach((ar,i)=>{
+    arr22[i] = ar+2;
+})
+
+console.log(mapresult,forEachResult,arr22)
+
+//Problems
+
+//1. Return only name of student in capital
+console.log("Problems");
+
+let studentss = [
+    {name:"Sanjay",rollNuber:23, marks:66},
+    {name:"hbh",rollNuber:13, marks:96},
+    {name:"nmmk",rollNuber:33, marks:66},
+    {name:"hjnlk",rollNuber:53, marks:96},
+];
+
+const capitalNames = studentss.map((stu)=>{
+    stu.name.toUpperCase();
+})
+console.log(capitalNames);
+
+//scored more than 60 marks
+const MoreMarks = studentss.filter((mar)=>{
+    mar.marks>60;
+})
+console.log(MoreMarks);
+//scored more than 60 marks and rollno >50
+const MoreMarksAndRollNum = studentss.filter((mar)=>{
+    mar.marks>60 && mar.rollNuber>50;
+})
+console.log(MoreMarksAndRollNum);
+
+//sum of marksn of all student
+console.log("sum of marksn of all student");
+const sum = studentss.reduce((acc,curr)=>{
+    acc+curr.marks,0
+})
+console.log(sum);
+
+
+
+
+//function
+
+//fn declaration or statement
+function squre(n){
+    return n*n;
+}
+
+//store fn inside a variable is called fn expression
+const fn1 = function(n){
+    return n*n;
+}
+console.log(fn1(10));
+
+//fns which treated as variable = first class fn
+function add(num){
+    return num+num;
+}
+
+function DisplayFunction(fn){
+    console.log("Add num is "+fn(10));
+
+}
+console.log(DisplayFunction(add));
+
+//IIFE -> immediate invoked fn expression
+(function add11(num){
+   console.log(num+num);
+})(3);
+//we can call fn next to the fn only
+//the ability of fn that able to acess variables and fn outside of the scope its called -> closure
+
+//fn Hoisting
+
+functionHoisting();//accesable
+console.log(c);//undefined
+
+function functionHoisting(){
+    console.log("fn hoisting example");
+}
+
+var c=30;
+
+//params vs args
+function squre1(num) {//parameters
+    console.log(num*num);
+}
+
+squre1(10);//value inside fn call is argumenent 
+
+
+//passing array of values using spread operator
+function squre12(num1,num2) {
+    console.log(num1*num2);
+}
+var arr2=[2,4];//spread op
+squre12(...arr2);
+
+function squre123(...nums) {// use inside fn called as rest op
+    console.log(nums[0]*nums[1]);
+}
+var arr2=[21,41];//spread op
+squre123(...arr2);
+
+//o/p question
+function fn(a,b,c,...num) {
+    console.log(a,b,num);
+}
+
+fn(1,2,3,4,5,43,3,3,2);
+
+//callback fn is fn that passes as argument inside a fn
+
+function greeting(name) {
+    alert("Name is "+name)
+}
+function CallBackfnExample(callback) {
+var name1="Sanjay";
+    alert("Enter your name");
+callback(name1);
+}
+
+CallBackfnExample(greeting);
+
+//arrow fn
+//Syntax
+//no return keyword
+//this points global object
+//cant get arguments without defining
+
+
+
+
+
+
+
+
+
+
+//objects
+// The Object type represents one of JavaScript's data types. 
+//It is used to store various keyed collections and more complex entities.
+
+const user ={
+    name:"sanjay",
+    age: 23,
+    age1:33,
+    "like this learning":true
+}
+
+console.log("Looping object");
+for ( a in user){
+    console.log(user[a]);
+}
+
+delete user.age1;
+console.log(user);
+console.log(user["like this learning"]);
+delete user["like this learning"];
+console.log(user.name, user.age);
+console.log(user);
+
+//op quuestion
+//here op is 5 because this delete fn is not applied to 
+//local variable it used only to objects
+const func = (function (a) {
+    delete a;
+    return a;
+    I
+    })(5);
+    console.log(func);
+
+
+
+// Question 2 - Create a function multiplyByTwo (obj) that
+// multiplies all numeric property values of nums by 2.
+let nums12 = {
+    a: 100,
+    b: 200,
+    title: "My nums"
+    };
+    console.log(nums12);
+
+    function MultiplayObject(obj){
+        for(key in obj){
+            if(typeof obj[key]==="number"){
+                obj[key]=obj[key]*2;
+            }
+        }
+    }
+    MultiplayObject(nums12);
+    console.log(nums12);
+
+
+// Objects in Javascript
+// Question 3 - What's the Output of the following code?
+const a1 = {};
+const b = { key: "b" };
+const c = { key: "c" };
+a1["[object Object]"] = 123;
+a1["[object Object]"] = 456;
+console.log(a1[b]);
+console.log(a1);
+
+
+const Object67={
+    name:"sanjay",
+    Age:23
+}
+const converter=JSON.stringify(Object67);
+console.log(converter);
+//obj back
+console.log(JSON.parse(converter));
+
+console.log("Inside Local storage");
+localStorage.setItem("test", converter);
+console.log(localStorage.getItem("test"));
+
+//spread operator
+console.log([..."sanjay"]);
+
+// Objects in Javascript
+// Question 6 - What's the Output ?
+const userq = { name: "Lydia", age: 21 };
+const admin = { admin: true, ...userq};
+console.log(admin);
+
+
+
+// Objects in Javascript
+// Question 7 - What's the Output ?
+const settings = {
+    username: "Piyush",
+    level: 19,
+    health: 90,
+    };
+    const data = JSON.stringify(settings, ["level", "health"]);
+    console.log(data);
+
+
+// Objects in Javascript
+// Question 8 - What's the Output ?
+const shape = {
+    radius: 10,
+    diameter() {
+    return this.radius * 2;
+    },
+    perimeter: () => 2 * Math.PI * this.radius,
+    };
+    console.log(shape.diameter());
+    console.log(shape.perimeter());
+
+
+// Objects in Javascript
+// Question 9 - What is destructuring in objects ?
+let userxx= {
+    name: "Piyush",
+    age: 24,
+    };
+    const name = "Roadside Coder";
+    const { name: myName} = userxx;
+    console.log(myName)
+
+
+// Objects in Javascript
+// Question 11 - What's the output?
+let c1 = { greeting: "Hey!" };
+let d; 
+//giving refrence not full object
+d = c1;
+c1.greeting = "Hello";
+console.log(d.greeting); // "Hello"
+
+// Objects in Javascript
+// Question 12 - What's the output?
+console.log({ a: 1 } == {a: 1 });//false
+console.log({ a: 1 } === {a: 1 });//false
+
+
+// Objects in Javascript
+// Question 14 - What's the output?
+const value = { number: 10 };
+const multiply = (x = { ...value }) => {
+console.log((x.number *= 2));
+};
+multiply(); // 20
+multiply(); // 20
+multiply (value); // 20
+multiply (value); //40
+
+
+// Objects in Javascript
+// Question 17 - How to deep copy / clone an object?
+//shallow copy -> copy ref
+//deep copy -> copy complete object
+console.log("How to deep copy / clone an object?");
+let puser = {
+    name: "Roadside Coder",
+    age: 24,
+    };
+    // const objClone = Object.assign({}, user);
+    const objClone = JSON.parse(JSON.stringify(user));
+    //const objClone = { ...puser};
+    objClone.name = "Piyush";
+    console.log(puser, objClone);
+
+
+
+
+
+
+
+
+
+
+//The value of this is determined by how a function is called (runtime binding). 
+//So, there are two types of binding when it comes to object binding in JS, one is implicit and other is explicit.
+
+//Implicit Binding
+//Implicit Binding is applied when you invoke a function in an Object using the dot notation. 
+//this in such scenarios will point to the object using which the function was invoked. 
+
+function myFunction() {
+    console.log(this)
+}
+myFunction(); // window object
+
+let a = 6;
+console.log(this.a); //undefined
+
+const myFun=()=> {
+    console.log(this)
+}
+myFun(); // window object
+
+let user = {
+    name: "Piyush",
+    age: 24,
+      getDetails() {
+          console.log(this.name); //Piyush
+      }
+  };
+  user.getDetails();
+  
+
+  let user1 = {
+    name: "Piyush",
+    age: 24,
+      childObj:{
+          newName:"Roadside Coder",
+          getDetails() {
+              console.log(this.newName, "and" ,this.name);
+          }
+      }
+  };
+  user1.childObj.getDetails();
+
+  console.log("Arrow fn");
+  let user12 = {
+    name: "Piyush",
+    age: 24,
+      getDetails111: () => {
+          console.log(this.name); 
+      }
+  };
+  console.log(user12.getDetails111());
+  // give you any output? Well it is empty since it points to window object.
+
+
+  let usera = {
+    name: "Piyush",
+    age: 24,
+      getDetailss() {
+          const nestedArrow = () => console.log(this.name); //Piyush
+          nestedArrow();
+      }
+  };
+  console.log(usera.getDetailss());
+
+
+  class userC {
+    constructor(n){
+        this.name = n
+    }
+    getName(){
+        console.log(this.name);
+    }
+}
+const User = new userC("Piyush Class") // => This will generate a user object from the above class
+User.getName();
+
+
+
+const userP = {
+    firstName: 'Piyush Parent Access!',
+    getName() {
+      const firstName = 'Jen!';
+      return this.firstName;
+      //this keyword refere to object first not fn
+    }
+  };
+  console.log(userP.getName()); // What is logged?
+
+
+  function makeUser() {
+    return {
+      name: "John",
+      ref: this
+    };
+  }
+  
+  let userqq = makeUser();
+  
+  alert( userqq.ref.name ); // What's the result?
+
+//ref put as fn
+  function makeUser() {
+    return {
+      name: "John",
+      ref(){
+        return this;
+      }
+    };
+  }
+  
+  let userqw = makeUser();
+  
+  alert( userqw.ref().name ); // What's the result?
+
+
+
+// 'this' Keyword in Javascript (Implicit Binding)
+// Question 4 - What is the Output?
+const userC1 = {
+    name: "Piyush",
+
+    greet() {
+    return `Hello, ${this.name}!"`;
+    },
+
+    //arrow fn points to window object
+    farewell: () => {
+    return `Goodbye, ${this.name}!"`;
+    }
+    };
+    console.log(userC1.greet()); // What is logged?
+    console.log(userC1.farewell()); // What is logged?
+
+
+
+
+// Promises in Javascript->async
+// Synchronous vs Asynchronous Code
+
+// Asynchronous programs can be faster than synchronous programs, as tasks can be executed
+// in parallel and don't need to wait for each other. 
+//Instructions in asynchronous code can execute in parallel.Next operation can occur while the previous operation is still getting processed.
+//Instruction in synchronous code executes in a given sequence.Each operation waits for the previous operation to complete its execution.
+
+
+
+
+//sync code
+console.log("start");
+console.log("I am Sanjay")
+console.log("Finish");
+
+
+// Async Code
+console.log("start");
+setTimeout(() => {
+console.log("Subscribe to Roadside Coder");
+}, 6000);
+console.log("I am Sanjay")
+console.log("Finish");
+
+
+
+
+console.log("start");
+function importantAction(username) {
+setTimeout(() => {
+return `'Subscribe to ${username}`;
+}, 1000);
+}
+
+const message = importantAction("Roadside Coder");
+console.log(message);
+console.log("stop");
+
+// to get output of code like aboves we use callback
+
+console.log("start");
+
+function importantAction(username,cb) {
+setTimeout(() => {
+cb(`${username}`);
+}, 1000);
+}
+
+const message1 = importantAction("Call Back Async Example",function(message1){
+    console.log(message1);
+});
+
+console.log("stop");
+
+
